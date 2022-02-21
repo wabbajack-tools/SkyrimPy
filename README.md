@@ -18,7 +18,7 @@ Note: this was originally forked from : https://github.com/Ryan-rsm-McKenzie so 
 ## Building
 ```
 git clone https://github.com/wabbajack-tools/SkyrimPy
-cd ExamplePlugin-CommonLibSSE
+cd SkyrimPy
 git submodule init
 git submodule update
 cmake --preset vs2022-windows
