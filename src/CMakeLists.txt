@@ -6,6 +6,9 @@ set(SOURCE_FILES
 	"${SOURCE_DIR}/PCH.h"
 )
 
+find_package(Python3 COMPONENTS Development Interpreter REQUIRED)
+find_package(pybind11 REQUIRED)
+
 source_group(TREE "${ROOT_DIR}" FILES ${SOURCE_FILES})
 
 set(VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/src/Plugin.h")
@@ -77,6 +80,9 @@ target_link_libraries(
 	"${PROJECT_NAME}"
 	PRIVATE
 		CommonLibSSE::CommonLibSSE
+		Python3::Python
+		pybind11::embed
+		pybind11::lto
 )
 
 target_precompile_headers(

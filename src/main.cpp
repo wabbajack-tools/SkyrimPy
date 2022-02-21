@@ -41,12 +41,77 @@ extern "C" DLLEXPORT constinit auto SKSEPlugin_Version = []() {
 	return v;
 }();
 
+void LogStatus(PyStatus* status)
+{
+    std::ofstream log;
+    log.open("c:\\tmp\\log.txt", std::ios::app);
+    log << status->err_msg << std::endl;
+    log.flush();
+    log.close();
+}
+
+void Log(const char* status)
+{
+    std::ofstream log;
+    log.open("c:\\tmp\\log.txt", std::ios::app);
+    log << status << std::endl;
+    log.flush();
+    log.close();
+}
+
+
+
+void init_python(void)
+{
+    PyStatus status;
+
+    PyConfig config;
+    Log("Starting Init");
+    PyConfig_InitPythonConfig(&config);
+
+
+    /* Set the program name. Implicitly preinitialize Python. */
+    status = PyConfig_SetString(&config, &config.program_name,
+                                L"E:\\SkyrimMods\\Skyrim\\SkyrimSE.exe");
+    if (PyStatus_Exception(status)) {
+        goto fail;
+    }
+
+    status = PyConfig_SetString(&config, &config.program_name,
+                                L"E:\\SkyrimMods\\Skyrim\\SkyrimSE.exe");
+    if (PyStatus_Exception(status)) {
+        goto fail;
+    }
+
+    status = Py_InitializeFromConfig(&config);
+    if (PyStatus_Exception(status)) {
+        goto fail;
+    }
+    PyConfig_Clear(&config);
+    Log("Inited");
+    return;
+
+    fail:
+    LogStatus(&status);
+    PyConfig_Clear(&config);
+    Py_ExitStatusException(status);
+}
+
+
 extern "C" DLLEXPORT bool SKSEAPI SKSEPlugin_Load(const SKSE::LoadInterface* a_skse)
 {
-	InitializeLog();
-	logger::info("{} v{}"sv, Plugin::NAME, Plugin::VERSION.string());
+    InitializeLog();
+    init_python();
 
-	SKSE::Init(a_skse);
-
+    try {
+        py::exec(R"(
+with open("c:\\tmp\\foo.txt", "w") as f:
+  f.write("dang")
+)");
+    }
+    catch (std::exception ex) {
+        Log(ex.what());
+    }
+    SKSE::Init(a_skse);
 	return true;
 }

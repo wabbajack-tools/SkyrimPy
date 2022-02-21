@@ -4,6 +4,8 @@
   "dependencies": [
     "boost-stl-interfaces",
     "rsm-binary-io",
-    "spdlog"
+    "spdlog",
+    "pybind11",
+    "python3"
   ]
 }

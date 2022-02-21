@@ -24,3 +24,7 @@ namespace util
 #define DLLEXPORT __declspec(dllexport)
 
 #include "Plugin.h"
+#include <pybind11/pybind11.h>
+#include <pybind11/embed.h>
+
+namespace py = pybind11;
