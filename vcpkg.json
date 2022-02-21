@@ -1,5 +1,5 @@
 {
-  "name": "example",
+  "name": "skyrimpy",
   "version": "1",
   "dependencies": [
     "boost-stl-interfaces",

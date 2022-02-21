@@ -1,4 +1,9 @@
-This is a basic plugin template for use with CommonLibSSE
+This is a SKSE plugin that wraps CommonLibSSE and presents it to Python. 
+The idea is to leverage the Python VM to the maximum capacity to enable average
+people, to write python scripts that interface with Skyrim.
+
+Note: this was originally forked from : https://github.com/Ryan-rsm-McKenzie so thank you to Ryan for the setup of all the CMake files and the like
+
 
 ## Requirements
 * [CMake](https://cmake.org/)
@@ -12,7 +17,7 @@ This is a basic plugin template for use with CommonLibSSE
 
 ## Building
 ```
-git clone https://github.com/Ryan-rsm-McKenzie/ExamplePlugin-CommonLibSSE
+git clone https://github.com/wabbajack-tools/SkyrimPy
 cd ExamplePlugin-CommonLibSSE
 git submodule init
 git submodule update
